@@ -1,3 +1,6 @@
+-- A Virtual Machine (VM) for Arithmetic (template)
+-- Copyright: Alexander Kurz 2022
+
 -----------------------
 -- Data types of the VM
 -----------------------
@@ -84,9 +87,9 @@ divN n p
   | otherwise = ((n `subN`(nn_pp)) `divN` p) `addN` (S O)
 
 subN :: NN -> NN -> NN
-subN O _ = O
+subN O n = O
 subN n O = n
-subN (S n1) (S n2) = subN n1 n2
+subN (S a) (S b) = (subN a b)
 
   
 -- remainder, eg 13 modulo by 5 is 3
@@ -102,7 +105,7 @@ modNRecurssive n d result
 
 -- greatest common divisor, eg gcd 9 33 is 3
 gcdP :: PP -> PP -> PP
-gcdP I I = I  -- GCD of two equal positive numbers is the number itself
+gcdP I I = I  
 gcdP a I = a
 gcdP I b = b
 gcdP a b = gcdP b (modN (nn_pp a) b)
@@ -127,7 +130,7 @@ negI (II a b) = II b a
 --equality of Integers
 instance Eq II where
   (II a b) == (II c d) = (a b) == (c d)
-  --doesnt work
+
 
 
 ----------------
@@ -137,7 +140,7 @@ instance Eq II where
 --Addition
 -- Addition for rational numbers
 addQ :: QQ -> QQ -> QQ
-addQ (QQ a1 b1) (QQ a2 b2) = QQ (( a `multI`(ii_pp d)) `addI` ((ii_pp b) `multI` c)) (b `multP` d)
+addQ (QQ a1 b1) (QQ a2 b2) = QQ (( a `multI` (ii_pp d)) `addI` ((ii_pp b) `multI` c)) (b `multP` d)
 
 
 -- Multiplication for rational numbers
@@ -150,7 +153,7 @@ multQ (QQ a b) (QQ c d) = QQ (a `multI` c)(b `multP` d)
 --equality of fractions
 instance Eq QQ where
   (QQ a b) == (QQ c d) = (a b) == (c d)
-  --doesnt work
+
   
 ----------------
 -- Normalisation
@@ -297,3 +300,36 @@ main = do
     putStrLn "\nTest cases for multI:"
     putStr "multI (II (S (S (S O))) (S O)) (II (S (S (S O))) (S (S O))): "
     print resultMult -- II (S (S (S (S (S (S (S (S O)))))))) (S (S (S (S (S (S O))))))))
+
+    -- Test Case 1: Normalization of a positive integer
+    let num1 = II (S (S O)) (S O)
+    let normalizedNum1 = nbe num1
+    putStr "Test Case 1 for nbe: "
+    print normalizedNum1 -- II (S (S (S (S O)))) (S O)
+
+    -- Test Case 2: Normalization of a negative integer
+    let num2 = II (S (S (S O))) (S (S O))
+    let normalizedNum2 = normalizeI num2
+    putStr "Test Case 2 for normalizeI: "
+    print normalizedNum2 -- II (S (S (S (S O)))) (S (S O))
+
+
+    let dividend = S (S (S (S (S O)))) -- 5 in unary representation (S O represents 1)
+        divisor = S (S O) -- 2 in unary representation
+
+    putStrLn "Dividend:"
+    printN dividend
+
+    putStrLn "Divisor:"
+    printN divisor
+
+    putStrLn "Result:"
+    let result = dividend `divN` divisor
+    printN result
+
+    printN :: NN -> IO ()
+    printN O = putStr "O"
+    printN (S n) = do
+    putStr "S "
+    printN n
+   
