@@ -12,7 +12,7 @@
     ##Blocks for displaying data in different formats, like tables, charts, or calendars.
     ##Possible format - 
 
-##Automation and Triggers:
+## Automation and Triggers:
     ##Blocks for setting up triggers and automation rules, like sending notifications when specific conditions are met.
     ##Time-based triggers for scheduling actions in Notion.
     ##Possible format - 
