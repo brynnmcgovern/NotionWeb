@@ -1,5 +1,5 @@
 ## Block that connects the Notion API and retrives data from a Notion database:
-    ##Notion allows for databases to be created that allows users to group important tasts, for instance one database could be used strictly to create classes and what a class consists off plus their respective assigments, another database could be made up of important events that contains infomration about time, people, and location
+    ##Notion allows for databases to be created that allows users to group important tasks together, for instance, one database ##could be used strictly to create and keep track of university classes and what a class consists of plus their respective ##assigments, another database could be made up of important events that contains infomration about time, people, and ##location
     ##Possible format - 
     ##given a database ID, retrive the database 
 
