@@ -1,28 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Block-Based Programming</title>
-    <!-- Include Blockly's CSS and JavaScript -->
-    <script src="https://unpkg.com/blockly@5.0.0/blockly_compressed.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/blockly@5.0.0/blockly.css">
-</head>
-<body>
-    <!-- Create a div to hold the workspace -->
-    <div id="blocklyDiv" style="height: 480px; width: 640px;"></div>
-
-    <!-- Include Blockly's JavaScript for the workspace -->
+    <title>Notion Blockly</title>
+    <script src="https://unpkg.com/blockly@5.0.0/blockly.js"></script>
     <script src="https://unpkg.com/blockly@5.0.0/blocks_compressed.js"></script>
     <script src="https://unpkg.com/blockly@5.0.0/javascript_compressed.js"></script>
-    
-    <!-- Include Blockly's default English language pack -->
-    <script src="https://unpkg.com/blockly@5.0.0/msg/js/en.js"></script>
-    
-    <!-- Include your custom blocks here (if needed) -->
-    <!-- <script src="custom-blocks.js"></script> -->
-    
-    <!-- Include your custom workspace configuration -->
-    <script src="custom-config.js"></script>
+</head>
+<body>
+    <h1>Notion Blockly</h1>
+    <div id="blocklyDiv" style="height: 480px; width: 800px;"></div>
+    <xml id="toolbox" style="display: none;">
+        <!-- Define your toolbox blocks here -->
+        <category name="Custom Blocks" colour="230">
+            <block type="get_notion_database"></block>
+        </category>
+    </xml>
+    <button id="runButton">Run Code</button>
+    <pre id="output">Output will appear here</pre>
+
+    <script>
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox')
+        });
+
+        document.getElementById('runButton').addEventListener('click', function () {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            // Execute the generated JavaScript code here (connect to Notion API).
+            // Display the result in the output element.
+            document.getElementById('output').textContent = code;
+        });
+    </script>
+
+    <script>
+        Blockly.Blocks['get_notion_database'] = {
+            init: function () {
+                this.appendValueInput('DATABASE_ID')
+                    .setCheck('String')
+                    .appendField('Retrieve data from Notion database with ID');
+                this.setInputsInline(true);
+                this.setOutput(true, 'Array');
+                this.setColour(230);
+                this.setTooltip('Retrieve data from a Notion database.');
+            }
+        };
+
+        Blockly.JavaScript['get_notion_database'] = function (block) {
+            var databaseId = Blockly.JavaScript.valueToCode(block, 'DATABASE_ID', Blockly.JavaScript.ORDER_ATOMIC);
+
+            // Generate JavaScript code for retrieving data from the Notion database.
+            var code = 'retrieveDataFromNotion(' + databaseId + ');';
+
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+        };
+
+        // Define the function to retrieve data from the Notion API (you need to implement this).
+        function retrieveDataFromNotion(databaseId) {
+            // Implement the code to connect to the Notion API and retrieve data here.
+            // You'll need to make an HTTP request to the Notion API with the provided databaseId.
+        }
+    </script>
 </body>
 </html>
-
