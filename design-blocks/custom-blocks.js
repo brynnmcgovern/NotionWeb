@@ -72,3 +72,23 @@ Blockly.Blocks['get_notion_database'] = {
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   };
   
+Blockly.Blocks['add_task_to_notion'] = {
+  init: function () {
+    this.appendValueInput('TASK')
+        .setCheck('String')
+        .appendField('Add task to Notion:');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip('Add a task to Notion.');
+    this.setHelpUrl('https://www.notion.so/');
+  },
+};
+
+Blockly.JavaScript['add_task_to_notion'] = function (block) {
+  var task = Blockly.JavaScript.valueToCode(block, 'TASK', Blockly.JavaScript.ORDER_ATOMIC);
+  // Implement the JavaScript code to add the task to Notion here.
+  // You can use the 'task' variable to get the task content.
+  var code = '...'; // Replace with your code
+  return code;
+};
