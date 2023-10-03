@@ -85,10 +85,60 @@ Blockly.Blocks['add_task_to_notion'] = {
   },
 };
 
-Blockly.JavaScript['add_task_to_notion'] = function (block) {
-  var task = Blockly.JavaScript.valueToCode(block, 'TASK', Blockly.JavaScript.ORDER_ATOMIC);
-  // Implement the JavaScript code to add the task to Notion here.
-  // You can use the 'task' variable to get the task content.
-  var code = '...'; // Replace with your code
-  return code;
+
+
+
+// Custom Blockly block for outputting HTML
+Blockly.Blocks['outputHTML'] = {
+  init: function() {
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
 };
+
+Blockly.JavaScript['outputHTML'] = function(block) {
+  // Replace this with your actual HTML code generation logic
+  var htmlCode = '<div>This is an example HTML code</div>';
+  
+  // Return the HTML code as a string
+  return [htmlCode, Blockly.JavaScript.ORDER_NONE];
+};
+
+// Custom Blockly block for creating a <div> element
+Blockly.Blocks['createDiv'] = {
+  init: function() {
+    this.appendValueInput('id')
+        .setCheck('String')
+        .appendField("Create <div> with ID");
+    this.appendValueInput('class')
+        .setCheck('String')
+        .appendField("and Class");
+    this.appendValueInput('content')
+        .setCheck('String')
+        .appendField("and Content");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['createDiv'] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_class = Blockly.JavaScript.valueToCode(block, 'class', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating a <div> element
+  var code = `<div id="${value_id}" class="${value_class}">${value_content}</div>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+// Usage of the createDiv block to generate HTML code
+var divId = "myDiv";
+var divClass = "myClass";
+var divContent = "This is a div element";
+var htmlCode = createDiv(divId, divClass, divContent);
+
