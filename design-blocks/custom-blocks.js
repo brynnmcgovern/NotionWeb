@@ -1,3 +1,5 @@
+Blockly.HSV_SATURATION = 1;
+
 Blockly.Blocks['get_notion_database'] = {
     init: function() {
       this.appendValueInput('DATABASE_ID')
@@ -134,6 +136,20 @@ Blockly.JavaScript['createDiv'] = function(block) {
   var code = `<div id="${value_id}" class="${value_class}">${value_content}</div>`;
   
   return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['temp'] = {
+  init: function() {
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['temp'] = function(block, generator) {
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
 };
 
 // Usage of the createDiv block to generate HTML code
