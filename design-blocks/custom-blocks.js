@@ -18,7 +18,7 @@ Blockly.Blocks['get_notion_database'] = {
     var databaseId = Blockly.JavaScript.valueToCode(block, 'DATABASE_ID', Blockly.JavaScript.ORDER_ATOMIC);
     var statements_get_access = Blockly.JavaScript.statementToCode(block, 'get_access');
     
-    // Generate code to retrieve data from the Notion database using the provided databaseId
+    //Generate code to retrieve data from the Notion database using the provided databaseId
     
     var code = '...'; // Your code here
     
