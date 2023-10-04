@@ -158,3 +158,54 @@ var divClass = "myClass";
 var divContent = "This is a div element";
 var htmlCode = createDiv(divId, divClass, divContent);
 
+// Custom Blockly block for creating a <p> element
+Blockly.Blocks['createParagraph'] = {
+  init: function() {
+    this.appendValueInput('content')
+        .setCheck('String')
+        .appendField("Create <p> with Content");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['createParagraph'] = function(block) {
+  var value_content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating a <p> element
+  var code = `<p>${value_content}</p>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+var paragraphContent = "This is a paragraph.";
+var paragraphHtml = createParagraph(paragraphContent);
+Blockly.Blocks['createLink'] = {
+  init: function() {
+    this.appendValueInput('url')
+        .setCheck('String')
+        .appendField("Create <a> link with URL");
+    this.appendValueInput('text')
+        .setCheck('String')
+        .appendField("and Text");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.JavaScript['createLink'] = function(block) {
+  var value_url = Blockly.JavaScript.valueToCode(block, 'url', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating an <a> link
+  var code = `<a href="${value_url}">${value_text}</a>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+var linkUrl = "https://example.com";
+var linkText = "Visit Example Website";
+var linkHtml = createLink(linkUrl, linkText);
+
+
