@@ -37,7 +37,7 @@ Blockly.Blocks['get_notion_database'] = {
     
     //Generate code to retrieve data from the Notion database using the provided databaseId
     
-    var code = '...'; // Your code here
+    var code = 'temp code'; // Your code here
     
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   };
