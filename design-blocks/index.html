@@ -16,6 +16,7 @@
     <xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
       <category name="Notion Database" colour="#995ba5">
         <block type="get_notion_database"></block>
+        <block type="Notion_Page_ID"></block>
         <block type="database_entry_operation"></block>
       </category>
       <category name="Functions" colour="#745ba5">
@@ -25,9 +26,19 @@
       <category name="MISC Blocks" colour="#5ba55b">
         <block type="outputHTML"></block>
         <block type="createDiv"></block>
-        <block type="createDiv"></block>
       </category>
     </xml>
+  </div>
+  <div class="row button-row">
+    <button onclick="generateCode()">Generate JavaScript</button>
+    <button onclick="runCode()">Run JavaScript</button>
+    <button onclick="saveBlocks()">Save Blocks</button>
+    <button onclick="loadBlocks()">Load Blocks</button>
+    <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
+  </div>
+  <div class="row">
+    <div id="codeDiv" class="half-width"></div>
+    <div id="outputDiv" class="half-width"></div>
   </div>
   <script>
     var workspace = Blockly.inject('blocklyDiv', {

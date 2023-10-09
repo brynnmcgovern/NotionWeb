@@ -1,5 +1,22 @@
 Blockly.HSV_SATURATION = 1;
 
+Blockly.Blocks['Notion_Page_ID'] = {
+  init: function() {
+    this.appendValueInput("Page ID")
+        .setCheck("String")
+        .appendField('Notion Page');
+    this.setOutput(false);
+    this.setColour(160);
+    this.setTooltip('Provide the ID of the desired notion page');
+    this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+  }
+};
+
+Blockly.JavaScript['Notion_Page_ID'] = function(nlock) {
+  
+}
+
+
 Blockly.Blocks['get_notion_database'] = {
     init: function() {
       this.appendValueInput('DATABASE_ID')
@@ -138,19 +155,6 @@ Blockly.JavaScript['createDiv'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.Blocks['temp'] = {
-  init: function() {
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-javascript.javascriptGenerator.forBlock['temp'] = function(block, generator) {
-  // TODO: Assemble javascript into code variable.
-  var code = '...\n';
-  return code;
-};
 
 // Usage of the createDiv block to generate HTML code
 var divId = "myDiv";
