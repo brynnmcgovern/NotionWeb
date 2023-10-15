@@ -447,3 +447,126 @@ Blockly.JavaScript['insertImage'] = function(block) {
 
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+// To Add A Table on Notion 
+// Custom Blockly block for creating a <div> element
+Blockly.Blocks['createDiv'] = {
+  init: function() {
+    this.appendValueInput('id')
+        .setCheck('String')
+        .appendField("Create <div> with ID");
+    this.appendValueInput('class')
+        .setCheck('String')
+        .appendField("and Class");
+    this.appendValueInput('content')
+        .setCheck('String')
+        .appendField("and Content");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['createDiv'] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_class = Blockly.JavaScript.valueToCode(block, 'class', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating a <div> element
+  var code = `<div id="${value_id}" class="${value_class}">${value_content}</div>`;
+  
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+// Custom Blockly block for creating a <p> element
+Blockly.Blocks['createParagraph'] = {
+  init: function() {
+    this.appendValueInput('content')
+        .setCheck('String')
+        .appendField("Create <p> with Content");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['createParagraph'] = function(block) {
+  var value_content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating a <p> element
+  var code = `<p>${value_content}</p>`;
+  
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+// Custom Blockly block for creating an <a> link
+Blockly.Blocks['createLink'] = {
+  init: function() {
+    this.appendValueInput('url')
+        .setCheck('String')
+        .appendField("Create <a> link with URL");
+    this.appendValueInput('text')
+        .setCheck('String')
+        .appendField("and Text");
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['createLink'] = function(block) {
+  var value_url = Blockly.JavaScript.valueToCode(block, 'url', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for creating an <a> link
+  var code = `<a href="${value_url}">${value_text}</a>`;
+  
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+// You can use these blocks to create HTML elements in Blockly. For example, to create a <div> element:
+var divId = "myDiv";
+var divClass = "myClass";
+var divContent = "This is a div element";
+var htmlCode = createDiv(divId, divClass, divContent);
+
+
+
+// To create a Checklist 
+Blockly.Blocks['generateHTML'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Generate HTML Code");
+    this.appendStatementInput("elements")
+        .setCheck(null)
+        .appendField("Elements");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['generateHTML'] = function(block) {
+  var statements_elements = Blockly.JavaScript.statementToCode(block, 'elements');
+  
+  // Wrap the generated HTML code in a <html> and <body> tags for completeness
+  var htmlCode = '<html>\n<head>\n</head>\n<body>\n' + statements_elements + '</body>\n</html>';
+  
+  return [htmlCode, Blockly.JavaScript.ORDER_NONE];
+};
+// Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
+var divId = "myDiv";
+var divClass = "myClass";
+var divContent = "This is a div element";
+var paragraphContent = "This is a paragraph.";
+var linkUrl = "https://example.com";
+var linkText = "Visit Example Website";
+
+generateHTML(function() {
+  createDiv(divId, divClass, divContent);
+  createParagraph(paragraphContent);
+  createLink(linkUrl, linkText);
+});
+
