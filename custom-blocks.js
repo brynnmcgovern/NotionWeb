@@ -150,7 +150,7 @@ Blockly.JavaScript['createDiv'] = function(block) {
   var value_content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
   
   // Generate HTML code for creating a <div> element
-  var code = `<div id="${value_id}" class="${value_class}" content="${value_content}"></div>`;
+  var code = `<div id="${value_id}" class="${value_class}" content="${value_content}" ></div>`;
   
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
