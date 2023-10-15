@@ -8,3 +8,5 @@ Our project will be using blockly to create a language that allows for elaboarat
 
 #how your project relates to the topics of parsing, interpretation and compilation:
 Notion is mostly made up of JavaScript/HTML. We will incorporate Blockly for this project so that users can use Blockly to design task lists visually which means they can add due dates for assignments/tasks and add descriptions for them in order to organize everything. Example features would include adding tasks, deleting tasks, as well as creating custom blocks to create the specific task lists mentioned above. Our project relates to the topics of parsing, interpretation, and compilation because we are allowing users to create visual blocks for tasks through our NotionWeb, Blockly-based language.
+
+https://brynnmcgovern.github.io/NotionWeb/ 

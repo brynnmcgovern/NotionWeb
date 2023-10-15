@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title> NotionWeb </title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="custom_category_es6.js"></script>
+  <script src="toolbox_label_es6.js"></script>
+  <script src="custom-blocks.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="row">
+    <div id="blocklyDiv" class="full-width"></div>
+    <xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
+      <category name="Notion Database" colour="#995ba5">
+        <block type="get_notion_database"></block>
+        <block type="Notion_Page_ID"></block>
+        <block type="database_entry_operation"></block>
+      </category>
+      <category name="Functions" colour="#745ba5">
+        <block type="customize_interface"></block>
+        <block type="add_task_to_notion"></block>
+      </category>
+      <category name="MISC Blocks" colour="#5ba55b">
+        <block type="outputHTML"></block>
+        <block type="createDiv"></block>
+      </category>
+       <category name="HTML Conversion Blocks" colour="#813d53">
+         <block type="createParagraph"></block>
+          <block type="createLink"></block>
+          <block type="createHeading"></block>
+          <block type="changeTextColor"></block>
+          <block type="boldText"></block>
+          <block type="italicizeText"></block>
+          <block type="changeTextSize"></block>
+          <block type="changeFont"></block>
+          <block type="createOrderedList"></block>
+          <block type="createUnorderedList"></block>
+          <block type="createHyperlink"></block>
+          <block type="insertImage"></block>
+      </category>
+    </xml>
+  </div>
+  <div class="row button-row">
+    <button onclick="generateCode()">Generate JavaScript</button>
+    <button onclick="runCode()">Run JavaScript</button>
+    <button onclick="saveBlocks()">Save Blocks</button>
+    <button onclick="loadBlocks()">Load Blocks</button>
+    <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
+  </div>
+  <div class="row">
+    <div id="codeDiv" class="half-width"></div>
+    <div id="outputDiv" class="half-width"></div>
+  </div>
+  <script>
+    var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('custom-toolbox'),
+            scrollbars: true
+        });
+    function generateCode() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        document.getElementById('codeDiv').innerText = code;
+    }
+
+    function runCode() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        try {
+            var output = eval(code);
+            document.getElementById('outputDiv').innerText = output;
+        } catch (e) {
+            document.getElementById('outputDiv').innerText = 'Error: ' + e;
+        }
+    }
+
+    function saveBlocks() {
+        var xml = Blockly.Xml.workspaceToDom(workspace);
+        var xmlText = Blockly.Xml.domToPrettyText(xml);
+        var blob = new Blob([xmlText], {type: 'text/xml'});
+        var a = document.createElement('a');
+        a.download = 'blocks.xml';
+        a.href = URL.createObjectURL(blob);
+        a.click();
+    }
+
+    function loadBlocks() {
+        document.getElementById('loadInput').click();
+    }    
+  </script>
+</body>
