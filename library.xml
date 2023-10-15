@@ -35,3 +35,40 @@
       </block>
     </value>
   </block></xml>
+
+
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="v$F~-*R]4O(I9Q}*eWvB" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTTOM"></mutation>
+    <field name="NAME">Create Paragraph</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTTOM</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="G|qZN}W`;eB`E(tr=pj/">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="q_d]!nAh/LRM?7ik=,%2">
+            <field name="TEXT"></field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="[;,,/_IZ+5rWa`8,[MVL" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="9ACKs~=Q{u#q.SG]rn$V" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="$pZ.2RqZD)2;5u)qT/Qk"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="TRn^XqOiiu9r^C,FUM$w">
+        <mutation colour="#a55b93"></mutation>
+        <field name="HUE">315</field>
+      </block>
+    </value>
+  </block></xml>
