@@ -119,7 +119,7 @@ Blockly.Blocks['outputHTML'] = {
 
 Blockly.JavaScript['outputHTML'] = function(block) {
   // Replace this with your actual HTML code generation logic
-  var htmlCode = '<div>This is an example HTML code</div>';
+  var htmlCode = '<div>This is an example of HTML code</div>';
   
   // Return the HTML code as a string
   return [htmlCode, Blockly.JavaScript.ORDER_NONE];
