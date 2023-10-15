@@ -355,3 +355,95 @@ var code = `<span style="font-family: ${font}">${text}</span>`;
 
 return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+//Custom block for ordered lists
+Blockly.Blocks['createOrderedList'] = {
+  init: function() {
+    this.appendStatementInput('ITEMS')
+        .setCheck(null)
+        .appendField('Create Ordered List');
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('Create an ordered list in HTML');
+  }
+};
+
+Blockly.JavaScript['createOrderedList'] = function(block) {
+  var statements_items = Blockly.JavaScript.statementToCode(block, 'ITEMS');
+  
+  // Generate HTML code for the ordered list
+  var code = `<ol>${statements_items}</ol>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//Custom block for unordered lists
+Blockly.Blocks['createUnorderedList'] = {
+  init: function() {
+    this.appendStatementInput('ITEMS')
+        .setCheck(null)
+        .appendField('Create Unordered List');
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('Create an unordered list in HTML');
+  }
+};
+
+Blockly.JavaScript['createUnorderedList'] = function(block) {
+  var statements_items = Blockly.JavaScript.statementToCode(block, 'ITEMS');
+  
+  // Generate HTML code for the unordered list
+  var code = `<ul>${statements_items}</ul>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//Custom block for hyperlinks
+Blockly.Blocks['createHyperlink'] = {
+  init: function() {
+    this.appendValueInput('URL')
+        .setCheck('String')
+        .appendField('Create Hyperlink with URL');
+    this.appendValueInput('TEXT')
+        .setCheck('String')
+        .appendField('and Text');
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('Create a hyperlink in HTML');
+  }
+};
+
+Blockly.JavaScript['createHyperlink'] = function(block) {
+  var value_url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_text = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // Generate HTML code for the hyperlink
+  var code = `<a href="${value_url}">${value_text}</a>`;
+  
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//Custom block for allowing users to insert and display images
+Blockly.Blocks['insertImage'] = {
+  init: function() {
+    this.appendValueInput('IMAGE_URL')
+        .setCheck('String')
+        .appendField('Insert Image with URL');
+    this.appendValueInput('ALT_TEXT')
+        .setCheck('String')
+        .appendField('and Alt Text');
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('Insert an image in HTML');
+  }
+};
+
+Blockly.JavaScript['insertImage'] = function(block) {
+  var value_imageUrl = Blockly.JavaScript.valueToCode(block, 'IMAGE_URL', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_altText = Blockly.JavaScript.valueToCode(block, 'ALT_TEXT', Blockly.JavaScript.ORDER_ATOMIC);
+
+  // Generate HTML code for inserting an image
+  var code = `<img src="${value_imageUrl}" alt="${value_altText}">`;
+
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
