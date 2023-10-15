@@ -1,3 +1,32 @@
+import { Client } from "@notionhq/client"
+import { config } from "dotenv"
+const { Block } = require("blockly");
+
+
+const NOTION_API_URL = `https://api.notion.com/v1/databases/${DATABASE_ID}/query`;
+const NOTION_SECRET = 'secret_z65eaTKh3IE7Jm7EPzgENG4aUWCNwQURv4511oUUPWr';
+
+fetch(NOTION_API_URL, {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${NOTION_SECRET}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    // Your query or filter criteria here
+  }),
+})
+
+.then(response => response.json())
+.then(data => {
+  // Process the Notion data here
+  console.log(data);
+})
+.catch(error => console.error('Error:', error));
+
+
+config()
+
 Blockly.HSV_SATURATION = 1;
 
 Blockly.Blocks['Notion_Page_ID'] = {
@@ -14,6 +43,16 @@ Blockly.Blocks['Notion_Page_ID'] = {
 
 Blockly.JavaScript['Notion_Page_ID'] = function(nlock) {
   
+}
+
+Blockly.Blocks["SetUpNotion"] = {
+  init: function(){
+
+  }
+}
+
+Blockly.JavaScript["SetUpNotion"] = function(block){
+
 }
 
 
