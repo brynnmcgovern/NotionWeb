@@ -12,16 +12,12 @@ Blockly.Blocks['Notion_Page_ID'] = {
   }
 };
 
-Blockly.JavaScript['Notion_Page_ID'] = function(nlock) {
-  
-}
-
 
 Blockly.Blocks['get_notion_database'] = {
     init: function() {
       this.appendValueInput('DATABASE_ID')
           .setCheck('String')
-          .appendField('Retrieve data from Notion database with ID');
+          .appendField('Retrieve data from: ');
       this.appendStatementInput('get_access')
           .appendField('get_access');
       this.setInputsInline(true);
@@ -58,6 +54,7 @@ Blockly.Blocks['get_notion_database'] = {
       this.setTooltip('Perform create, update, or delete operation on a Notion database entry.');
     }
   };
+
   Blockly.JavaScript['database_entry_operation'] = function(block) {
     var operation = block.getFieldValue('OPERATION');
     var data = Blockly.JavaScript.valueToCode(block, 'DATA', Blockly.JavaScript.ORDER_ATOMIC);
@@ -101,29 +98,10 @@ Blockly.Blocks['add_task_to_notion'] = {
     this.setColour(160);
     this.setTooltip('Add a task to Notion.');
     this.setHelpUrl('https://www.notion.so/');
-  },
-};
-
-
-
-
-// Custom Blockly block for outputting HTML
-Blockly.Blocks['outputHTML'] = {
-  init: function() {
-    this.setOutput(true, 'String');
-    this.setColour(230);
-    this.setTooltip('');
-    this.setHelpUrl('');
   }
 };
 
-Blockly.JavaScript['outputHTML'] = function(block) {
-  // Replace this with your actual HTML code generation logic
-  var htmlCode = '<div>This is an example of HTML code</div>';
-  
-  // Return the HTML code as a string
-  return [htmlCode, Blockly.JavaScript.ORDER_NONE];
-};
+
 
 // Custom Blockly block for creating a <div> element
 Blockly.Blocks['createDiv'] = {
@@ -156,11 +134,11 @@ Blockly.JavaScript['createDiv'] = function(block) {
 };
 
 
-// Usage of the createDiv block to generate HTML code
-var divId = "myDiv";
-var divClass = "myClass";
-var divContent = "This is a div element";
-var htmlCode = createDiv(divId, divClass, divContent);
+// // Usage of the createDiv block to generate HTML code
+// var divId = "myDiv";
+// var divClass = "myClass";
+// var divContent = "This is a div element";
+// var htmlCode = createDiv(divId, divClass, divContent);
 
 // Custom Blockly block for creating a <p> element
 Blockly.Blocks['createParagraph'] = {
@@ -170,8 +148,8 @@ Blockly.Blocks['createParagraph'] = {
         .appendField("Create <p> with Content");
     this.setOutput(true, 'String');
     this.setColour(230);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip('Create Paragraph');
+    this.setHelpUrl('https://www.notion.so/');
   }
 };
 
@@ -183,8 +161,10 @@ Blockly.JavaScript['createParagraph'] = function(block) {
   
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
-var paragraphContent = "This is a paragraph.";
-var paragraphHtml = createParagraph(paragraphContent);
+
+// var paragraphContent = "This is a paragraph.";
+// var paragraphHtml = createParagraph(paragraphContent);
+
 Blockly.Blocks['createLink'] = {
   init: function() {
     this.appendValueInput('url')
@@ -199,6 +179,7 @@ Blockly.Blocks['createLink'] = {
     this.setHelpUrl('');
   }
 };
+
 Blockly.JavaScript['createLink'] = function(block) {
   var value_url = Blockly.JavaScript.valueToCode(block, 'url', Blockly.JavaScript.ORDER_ATOMIC);
   var value_text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
@@ -208,9 +189,10 @@ Blockly.JavaScript['createLink'] = function(block) {
   
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
-var linkUrl = "https://example.com";
-var linkText = "Visit Example Website";
-var linkHtml = createLink(linkUrl, linkText);
+
+// var linkUrl = "https://example.com";
+// var linkText = "Visit Example Website";
+// var linkHtml = createLink(linkUrl, linkText);
 
 
 Blockly.Blocks['createHeading'] = {
@@ -556,13 +538,27 @@ Blockly.JavaScript['generateHTML'] = function(block) {
   
   return [htmlCode, Blockly.JavaScript.ORDER_NONE];
 };
-// Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
-var divId = "myDiv";
-var divClass = "myClass";
-var divContent = "This is a div element";
-var paragraphContent = "This is a paragraph.";
-var linkUrl = "https://example.com";
-var linkText = "Visit Example Website";
+
+Blockly.Blocks['testhere'] = {
+  init: function () {
+    this.appendValueInput('TASK')
+        .setCheck('String')
+        .appendField('Add task to Notion:');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip('Add a task to Notion.');
+    this.setHelpUrl('https://www.notion.so/');
+  }
+};
+
+// // Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
+// var divId = "myDiv";
+// var divClass = "myClass";
+// var divContent = "This is a div element";
+// var paragraphContent = "This is a paragraph.";
+// var linkUrl = "https://example.com";
+// var linkText = "Visit Example Website";
 
 generateHTML(function() {
   createDiv(divId, divClass, divContent);
