@@ -211,3 +211,147 @@ Blockly.JavaScript['createLink'] = function(block) {
 var linkUrl = "https://example.com";
 var linkText = "Visit Example Website";
 var linkHtml = createLink(linkUrl, linkText);
+
+
+Blockly.Blocks['createHeading'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Create heading with text");
+this.appendValueInput('level')
+  .setCheck('Number')
+  .appendField("of level");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['createHeading'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+var level = Blockly.JavaScript.valueToCode(block, 'level', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for creating headings
+var code = `<h${level}>${text}</h${level}>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['changeTextColor'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Change color of");
+this.appendValueInput('color')
+  .setCheck('Colour')
+  .appendField("to color");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['changeTextColor'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+var color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for changing text color
+var code = `<span style="color: ${color}">${text}</span>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['boldText'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Bold");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['boldText'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for bolding text
+var code = `<strong>${text}</strong>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+
+Blockly.Blocks['italicizeText'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Italicize");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['italicizeText'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for italicizing text
+var code = `<em>${text}</em>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['changeTextSize'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Change size of");
+this.appendValueInput('size')
+  .setCheck('Number')
+  .appendField("to size");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['changeTextSize'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+var size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for changing text size
+var code = `<span style="font-size: ${size}px">${text}</span>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['changeFont'] = {
+init: function() {
+this.appendValueInput('text')
+  .setCheck('String')
+  .appendField("Change font of");
+this.appendValueInput('font')
+  .setCheck('String')
+  .appendField("to font");
+this.setOutput(true, 'String');
+this.setColour(160);
+this.setTooltip('');
+this.setHelpUrl('');
+}
+};
+
+Blockly.JavaScript['changeFont'] = function(block) {
+var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+var font = Blockly.JavaScript.valueToCode(block, 'font', Blockly.JavaScript.ORDER_ATOMIC);
+
+// Generate HTML code for changing font
+var code = `<span style="font-family: ${font}">${text}</span>`;
+
+return [code, Blockly.JavaScript.ORDER_NONE];
+};
