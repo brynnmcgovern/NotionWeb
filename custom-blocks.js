@@ -383,6 +383,25 @@ var code = `<span style="font-size: ${size}px">${text}</span>`;
 return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+// Custom Blockly block for integer input
+Blockly.Blocks['integerInput'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 1), 'NUMBER');
+    this.setOutput(true, 'Number');
+    this.setColour(230);
+    this.setTooltip('Enter an integer');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['integerInput'] = function(block) {
+  var number = parseFloat(block.getFieldValue('NUMBER'));
+  // Return the input number as a number
+  return [number, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 Blockly.Blocks['changeFont'] = {
 init: function() {
 this.appendValueInput('text')
@@ -608,6 +627,25 @@ Blockly.JavaScript['generateHTML'] = function(block) {
   
   return [htmlCode, Blockly.JavaScript.ORDER_NONE];
 };
+
+// Custom Blockly block for text input
+Blockly.Blocks['textInput'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput('Default Text'), 'TEXT');
+    this.setOutput(true, 'String');
+    this.setColour(230);
+    this.setTooltip('Enter text here');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['textInput'] = function(block) {
+  var text = block.getFieldValue('TEXT');
+  // Return the input text as a string
+  return [text, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 
 
 // // Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
