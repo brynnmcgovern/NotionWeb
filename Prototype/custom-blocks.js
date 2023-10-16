@@ -1,5 +1,75 @@
 Blockly.HSV_SATURATION = 1;
 
+Blockly.Blocks['Working_Example'] = {
+  init: function() {
+    this.appendValueInput("API_KEY")
+        .setCheck("String")
+        .appendField("Notion API Key:");
+    // this.appendValueInput("TITLE")
+    //     .setCheck("String")
+    //     .appendField("Page Title:");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['Working_Example'] = function (block) {
+  var apiKey = Blockly.JavaScript.valueToCode(block, 'API_KEY', Blockly.JavaScript.ORDER_ATOMIC);
+  //var title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `
+    const { Client } = require('@notionhq/client');
+    const notion = new Client({ auth: ${apiKey} });
+
+    (async () => {
+      const response = await notion.databases.create({
+        parent: {
+          type: "page_id",
+          page_id: "NotionWeb-a6054963c69a458998504862425576fb",
+        },
+        icon: {
+          type: "emoji",
+          emoji: "📝",
+        },
+        cover: {
+          type: "external",
+          external: {
+            url: "https://website.domain/images/image.png",
+          },
+        },
+        title: [
+          {
+            type: "text",
+            text: {
+              content: "Grocery List",
+              link: null,
+            },
+          },
+        ],
+      console.log(response);
+    })();
+  `;
+
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Blocks['notion_api_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Notion API Key:")
+        .appendField(new Blockly.FieldTextInput("YOUR_API_KEY"), "API_KEY");
+    this.setOutput(true, "String");
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+
+
 Blockly.Blocks['Notion_Page_ID'] = {
   init: function() {
     this.appendValueInput("Page ID")
@@ -539,18 +609,6 @@ Blockly.JavaScript['generateHTML'] = function(block) {
   return [htmlCode, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.Blocks['testhere'] = {
-  init: function () {
-    this.appendValueInput('TASK')
-        .setCheck('String')
-        .appendField('Add task to Notion:');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(160);
-    this.setTooltip('Add a task to Notion.');
-    this.setHelpUrl('https://www.notion.so/');
-  }
-};
 
 // // Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
 // var divId = "myDiv";
