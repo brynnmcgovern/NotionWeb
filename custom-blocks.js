@@ -579,11 +579,7 @@ Blockly.JavaScript['createLink'] = function(block) {
   
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
-// You can use these blocks to create HTML elements in Blockly. For example, to create a <div> element:
-var divId = "myDiv";
-var divClass = "myClass";
-var divContent = "This is a div element";
-var htmlCode = createDiv(divId, divClass, divContent);
+
 
 
 
