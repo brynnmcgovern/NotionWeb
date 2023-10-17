@@ -17,7 +17,7 @@ Blockly.Blocks['load_database'] = {
 javascript.javascriptGenerator.forBlock['load_database'] = function(block, generator) {
   var text_databaseid = block.getFieldValue('databaseID');
   // TODO: Assemble javascript into code variable.
-  var code = '...\n';
+  var code = `Loading Information from"${text_databaseid}"`;
   return code;
 };
 
@@ -171,7 +171,50 @@ Blockly.Blocks['notion_page_ID'] = {
 };
 
 //functions that manipulate a given notion databases - located in the notion functions tab
-  
+Blockly.Blocks['add_entry_to_database'] = {
+  init: function() {
+    this.appendStatementInput("NAME")
+        .setCheck("entryInformation")
+        .appendField("Create a New Database Entry:");
+    this.setPreviousStatement(true, "databasemanipulation");
+    this.setNextStatement(true, "databasemanipulation");
+    this.setColour(20);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['add_entry_to_database'] = function(block, generator) {
+  var statements_name = generator.statementToCode(block, 'NAME');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+Blockly.Blocks['entry_property'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PropertyName")
+        .appendField(new Blockly.FieldTextInput("name of database property"), "propertyName")
+        .appendField("Property Value")
+        .appendField(new Blockly.FieldTextInput("propertyValue"), "propertyValue");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(45);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['entry_property'] = function(block, generator) {
+  var text_propertyname = block.getFieldValue('propertyName');
+  var text_propertyvalue = block.getFieldValue('propertyValue');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+
   Blockly.Blocks['database_entry_operation'] = {
     init: function() {
       this.appendValueInput('DATA')
