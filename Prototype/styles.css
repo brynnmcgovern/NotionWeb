@@ -5,6 +5,14 @@ body, html {
     display: flex;
     flex-direction: column;
 }
+.header {
+    padding: 0.1 px;
+    text-align: center;
+    background: linear-gradient(to bottom, #9e7c63, #5c4636);
+    color: white;
+    font-size: 15px;
+    height: 150px;
+  }
 .row {
     display: flex;
     justify-content: space-between;

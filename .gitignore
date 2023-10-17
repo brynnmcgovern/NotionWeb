@@ -1,0 +1,7 @@
+# Ignore .DS_Store files (macOS specific)
+.DS_Store
+
+# Ignore node_modules directory
+Prototype/node_modules
+
+.env

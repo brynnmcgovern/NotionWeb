@@ -11,23 +11,31 @@
   <script src="javascript_compressed.js"></script>
   <script src="custom_category_es6.js"></script>
   <script src="toolbox_label_es6.js"></script>
-
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+  <div class="header">
+    <h1>NotionWeb</h1>
+    <p>"Bridging the learning gap between Notion and It's Users"</p>
+    <p>Github Link: https://github.com/brynnmcgovern/NotionWeb#readme</p>
+  </div>
   <div class="row">
     <div id="blocklyDiv" class="full-width"></div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
       <category name="Notion Database" colour="#995ba5">
-        <block type="get_notion_database"></block>
-        <block type="Notion_Page_ID"></block>
-        <block type="database_entry_operation"></block>
+        <block type="make_connection"></block>
+        <block type="notion_page_ID"></block>
+        <block type="notion_api_key"></block>
+        <block type="create_new_database"></block>
+        <block type="load_database"></block>
+        <block type="databaseproperty"></block>
+        <block type="multiselectdatabaseproperty"></block>
+        <block type="multiselect_option"></block>
       </category>
       <category name="Functions" colour="#745ba5">
-        <block type="customize_interface"></block>
         <block type="add_task_to_notion"></block>
-        <block type="Working_Example"></block>
-        <block type="notion_api_key"></block>
+        <block type="get_notion_database"></block>
+        <block type="database_entry_operation"></block>
       </category>
       <category name="MISC Blocks" colour="#5ba55b">
         <block type="createDiv"></block>
