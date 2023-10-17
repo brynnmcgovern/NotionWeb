@@ -1,112 +1,177 @@
 Blockly.HSV_SATURATION = 1;
 
-Blockly.Blocks['Working_Example'] = {
+//functions that create and load notion databases - located in the notion dtabase tab
+Blockly.Blocks['load_database'] = {
   init: function() {
-    this.appendValueInput("API_KEY")
-        .setCheck("String")
-        .appendField("Notion API Key:");
-    // this.appendValueInput("TITLE")
-    //     .setCheck("String")
-    //     .appendField("Page Title:");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.appendDummyInput()
+        .appendField("Notion Database ID:")
+        .appendField(new Blockly.FieldTextInput("databaseID"), "databaseID");
+    this.setPreviousStatement(true, "NotionDatabase");
+    this.setNextStatement(true, "databasemanipulation");
     this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
+ this.setTooltip("");
+ this.setHelpUrl("");
   }
 };
 
-Blockly.JavaScript['Working_Example'] = function (block) {
-  var apiKey = Blockly.JavaScript.valueToCode(block, 'API_KEY', Blockly.JavaScript.ORDER_ATOMIC);
-  //var title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-
-  var code = `
-    const { Client } = require('@notionhq/client');
-    const notion = new Client({ auth: ${apiKey} });
-
-    (async () => {
-      const response = await notion.databases.create({
-        parent: {
-          type: "page_id",
-          page_id: "NotionWeb-a6054963c69a458998504862425576fb",
-        },
-        icon: {
-          type: "emoji",
-          emoji: "📝",
-        },
-        cover: {
-          type: "external",
-          external: {
-            url: "https://website.domain/images/image.png",
-          },
-        },
-        title: [
-          {
-            type: "text",
-            text: {
-              content: "Grocery List",
-              link: null,
-            },
-          },
-        ],
-      console.log(response);
-    })();
-  `;
-
-  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+javascript.javascriptGenerator.forBlock['load_database'] = function(block, generator) {
+  var text_databaseid = block.getFieldValue('databaseID');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
 };
+
+Blockly.Blocks['create_new_database'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("New Database Name:")
+        .appendField(new Blockly.FieldTextInput("New Database Name:"), "databaseName");
+    this.appendDummyInput()
+        .appendField("Database View: ")
+        .appendField(new Blockly.FieldDropdown([["Table","OPTIONNAME"], ["Board","OPTIONNAME"], ["Timeline","OPTIONNAME"], ["Calendar","OPTIONNAME"], ["List","OPTIONNAME"], ["Gallery","OPTIONNAME"]]), "ViewType");
+    this.appendStatementInput("NAME")
+        .setCheck("databaseproperty")
+        .appendField("Database Properties:");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "NotionDatabase");
+    this.setNextStatement(true, "databasemanipulation");
+    this.setColour(230);
+ this.setTooltip("\"Create Your Own Custom Database");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['create_new_database'] = function(block, generator) {
+  var text_databasename = block.getFieldValue('databaseName');
+  var dropdown_viewtype = block.getFieldValue('ViewType');
+  var statements_name = generator.statementToCode(block, 'NAME');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+Blockly.Blocks['databaseproperty'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Database Property Name:")
+        .appendField(new Blockly.FieldTextInput("Property Name:"), "property name");
+    this.appendDummyInput()
+        .appendField("Property Type:")
+        .appendField(new Blockly.FieldDropdown([["Checkbox","checkBox"], ["Date","date"], ["Email","email"], ["People","people"], ["Number","number"], ["Text","text"], ["Status","status"]]), "property type");
+    this.setPreviousStatement(true, "databaseproperty");
+    this.setNextStatement(true, "databaseproperty");
+    this.setColour(315);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['databaseproperty'] = function(block, generator) {
+  var text_property_name = block.getFieldValue('property name');
+  var dropdown_property_type = block.getFieldValue('property type');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+Blockly.Blocks['multiselectdatabaseproperty'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Multiselect Database Property Name:")
+        .appendField(new Blockly.FieldTextInput("Property Name:"), "property name");
+    this.appendStatementInput("Multiselect Option")
+        .setCheck("multiselection option")
+        .appendField("Selection Options:");
+    this.setPreviousStatement(true, "databaseproperty");
+    this.setNextStatement(true, "databaseproperty");
+    this.setColour(285);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['multiselectdatabaseproperty'] = function(block, generator) {
+  var text_property_name = block.getFieldValue('property name');
+  var statements_multiselect_option = generator.statementToCode(block, 'Multiselect Option');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+Blockly.Blocks['multiselect_option'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Selection Option:")
+        .appendField(new Blockly.FieldTextInput("Option"), "multiselection option");
+    this.setPreviousStatement(true, "multiselection option");
+    this.setNextStatement(true, "multiselection option");
+    this.setColour(285);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['multiselect_option'] = function(block, generator) {
+  var text_multiselection_option = block.getFieldValue('multiselection option');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
+Blockly.Blocks['make_connection'] = {
+  init: function() {
+    this.appendValueInput("notion_api_key")
+        .setCheck("notion_api_key")
+        .appendField("Enter Notion Integration Key:");
+    this.appendValueInput("notion_page_ID")
+        .setCheck("notion_page_ID")
+        .appendField("Enter Notion Page ID:");
+    this.appendStatementInput("NotionAPIRequests")
+        .setCheck("NotionDatabase")
+        .appendField("Notion API Requests:");
+    this.setColour(180);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['make_connection'] = function(block, generator) {
+  var value_notion_api_key = generator.valueToCode(block, 'notion_api_key', javascript.Order.ATOMIC);
+  var value_notion_page_id = generator.valueToCode(block, 'notion_page_ID', javascript.Order.ATOMIC);
+  var statements_notionapirequests = generator.statementToCode(block, 'NotionAPIRequests');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
 
 Blockly.Blocks['notion_api_key'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Notion API Key:")
+        .appendField("Notion API Token/Key:")
         .appendField(new Blockly.FieldTextInput("YOUR_API_KEY"), "API_KEY");
-    this.setOutput(true, "String");
-    this.setColour(230);
+    this.setOutput(true, "notion_api_key");
+    this.setColour(180);
     this.setTooltip("");
     this.setHelpUrl("");
   }
 };
 
-
-
-Blockly.Blocks['Notion_Page_ID'] = {
+Blockly.Blocks['notion_page_ID'] = {
   init: function() {
-    this.appendValueInput("Page ID")
-        .setCheck("String")
-        .appendField('Notion Page');
-    this.setOutput(false);
-    this.setColour(160);
-    this.setTooltip('Provide the ID of the desired notion page');
-    this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+    this.appendDummyInput()
+        .appendField("Notion Page ID:")
+        .appendField(new Blockly.FieldTextInput("Page ID"), "notion_page_ID");
+    this.setOutput(true, "notion_page_ID");
+    this.setColour(180);
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
+//functions that manipulate a given notion databases - located in the notion functions tab
 
-Blockly.Blocks['get_notion_database'] = {
-    init: function() {
-      this.appendValueInput('DATABASE_ID')
-          .setCheck('String')
-          .appendField('Retrieve data from: ');
-      this.appendStatementInput('get_access')
-          .appendField('get_access');
-      this.setInputsInline(true);
-      this.setOutput(true, 'Array');
-      this.setColour(230);
-      this.setTooltip('Retrieve data from a Notion database.');
-    }
-  };
-  
-  Blockly.JavaScript['get_notion_database'] = function(block) {
-    var databaseId = Blockly.JavaScript.valueToCode(block, 'DATABASE_ID', Blockly.JavaScript.ORDER_ATOMIC);
-    var statements_get_access = Blockly.JavaScript.statementToCode(block, 'get_access');
-    
-    //Generate code to retrieve data from the Notion database using the provided databaseId
-    
-    var code = 'temp code'; // Your code here
-    
-    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-  };
   
   Blockly.Blocks['database_entry_operation'] = {
     init: function() {
@@ -135,28 +200,7 @@ Blockly.Blocks['get_notion_database'] = {
     
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   };
- 
-  Blockly.Blocks['customize_interface'] = {
-    init: function() {
-      this.appendValueInput('CUSTOMIZATION')
-          .setCheck('String')
-          .appendField('Customize user interface with:');
-      this.setInputsInline(true);
-      this.setOutput(true, 'Boolean'); // Assuming it returns true or false
-      this.setColour(290);
-      this.setTooltip('Customize the user interface in Notion.');
-    }
-  };
-  
-  Blockly.JavaScript['customize_interface'] = function(block) {
-    var customization = Blockly.JavaScript.valueToCode(block, 'CUSTOMIZATION', Blockly.JavaScript.ORDER_ATOMIC);
-    
-    // Generate code to customize the user interface in Notion using the provided customization data
-    
-    var code = '...'; // Your code here
-    
-    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-  };
+
   
 Blockly.Blocks['add_task_to_notion'] = {
   init: function () {
@@ -170,8 +214,6 @@ Blockly.Blocks['add_task_to_notion'] = {
     this.setHelpUrl('https://www.notion.so/');
   }
 };
-
-
 
 // Custom Blockly block for creating a <div> element
 Blockly.Blocks['createDiv'] = {

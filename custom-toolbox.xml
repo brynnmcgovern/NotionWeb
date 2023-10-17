@@ -1,6 +1,0 @@
-<xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
-  <category name="Notion Database" colour="#995ba5"></category>
-  <category name="Functions" colour="#745ba5"></category>
-  <category name="MISC Blocks" colour="#5ba55b"></category>
-  <category name="HTML Conversion Blocks" colour="#813d53"></category>
-</xml>

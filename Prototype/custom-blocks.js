@@ -1,6 +1,6 @@
 Blockly.HSV_SATURATION = 1;
 
-//functions that create and load notion databases
+//functions that create and load notion databases - located in the notion dtabase tab
 Blockly.Blocks['load_database'] = {
   init: function() {
     this.appendDummyInput()
@@ -170,32 +170,7 @@ Blockly.Blocks['notion_page_ID'] = {
   }
 };
 
-
-
-Blockly.Blocks['get_notion_database'] = {
-    init: function() {
-      this.appendValueInput('DATABASE_ID')
-          .setCheck('String')
-          .appendField('Retrieve data from: ');
-      this.appendStatementInput('get_access')
-          .appendField('get_access');
-      this.setInputsInline(true);
-      this.setOutput(true, 'Array');
-      this.setColour(230);
-      this.setTooltip('Retrieve data from a Notion database.');
-    }
-  };
-  
-  Blockly.JavaScript['get_notion_database'] = function(block) {
-    var databaseId = Blockly.JavaScript.valueToCode(block, 'DATABASE_ID', Blockly.JavaScript.ORDER_ATOMIC);
-    var statements_get_access = Blockly.JavaScript.statementToCode(block, 'get_access');
-    
-    //Generate code to retrieve data from the Notion database using the provided databaseId
-    
-    var code = 'temp code'; // Your code here
-    
-    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-  };
+//functions that manipulate a given notion databases - located in the notion functions tab
   
   Blockly.Blocks['database_entry_operation'] = {
     init: function() {
@@ -225,20 +200,6 @@ Blockly.Blocks['get_notion_database'] = {
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   };
  
-  
-Blockly.Blocks['add_task_to_notion'] = {
-  init: function () {
-    this.appendValueInput('TASK')
-        .setCheck('String')
-        .appendField('Add task to Notion:');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(160);
-    this.setTooltip('Add a task to Notion.');
-    this.setHelpUrl('https://www.notion.so/');
-  }
-};
-
 
 
 // Custom Blockly block for creating a <div> element
