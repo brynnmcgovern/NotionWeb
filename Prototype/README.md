@@ -7,3 +7,6 @@ Allowing users to add images to their notion page
 Creating tables and checklists
 
 In the demo particularly, the blocks can be nested together or placed individually. Then their functionality can be tested by pressing Generate Javascript which will output the HTML code that has been converted from Javascript to HTML.
+
+
+Link to slides: https://www.canva.com/design/DAFxSeu0zN8/-HeNOsW6pp4h_CczCh92sA/edit?utm_content=DAFxSeu0zN8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
