@@ -2,6 +2,6 @@
 .DS_Store
 
 # Ignore node_modules directory
-Prototype/node_modules
+node_modules
 
 .env
