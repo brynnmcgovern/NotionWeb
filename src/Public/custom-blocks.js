@@ -1,5 +1,110 @@
 Blockly.HSV_SATURATION = 1;
 
+//simple block to create a class database
+Blockly.Blocks['createclassmanager'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create A Class Manager Database");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Enter Name Of Database")
+        .appendField(new Blockly.FieldTextInput("Enter Name Here"), "databaseName");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Enter URL of Header Image")
+        .appendField(new Blockly.FieldTextInput("Enter URL Here"), "databaseImage");
+    this.appendValueInput("pageID")
+        .setCheck("notion_page_ID")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Page ID");
+    this.appendStatementInput("Add an Entry")
+        .setCheck("class_entry")
+        .appendField("Entries");
+    this.setColour(65);
+ this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['createclassmanager'] = function(block, generator) {
+  var text_databasename = block.getFieldValue('databaseName');
+  var text_databaseimage = block.getFieldValue('databaseImage');
+  var value_pageID = generator.valueToCode(block, 'pageID', javascript.Order.ATOMIC);
+  var statements_add_an_entry = generator.statementToCode(block, 'Add an Entry');
+
+  var code = `
+  async function makeRequest() {
+
+    const dbName = "${text_databasename}"
+    const dbImageURL = "${text_databaseimage}"
+    const body = JSON.stringify({ dbName, dbImageURL })
+
+    const newDBResponse = await fetch("/createClassManager", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    })
+    const newDBData = await newDBResponse.json()
+    return newDBData;
+  }
+
+  // Execute the async function
+  result = makeRequest();
+
+  //const result = await makeRequest();
+  console.log(result);
+  `;
+
+  return code;
+};
+
+//class entry for class database
+Blockly.Blocks['class_entry'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Add a Class");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Class Name"), "className");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Class Time"), "classTime");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Proffesor Name"), "proffesorName");
+    this.appendDummyInput()
+        .appendField("Class Days:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onMonday")
+        .appendField("Mon")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onTuesday")
+        .appendField("Tue")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onWednesday")
+        .appendField("Wed")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onThursday")
+        .appendField("Thu")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onFriday")
+        .appendField("Fri");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+ this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['class_entry'] = function(block, generator) {
+  var text_classname = block.getFieldValue('className');
+  var text_classtime = block.getFieldValue('classTime');
+  var text_proffesorname = block.getFieldValue('proffesorName');
+  var checkbox_onmonday = block.getFieldValue('onMonday') === 'TRUE';
+  var checkbox_ontuesday = block.getFieldValue('onTuesday') === 'TRUE';
+  var checkbox_onwednesday = block.getFieldValue('onWednesday') === 'TRUE';
+  var checkbox_onthursday = block.getFieldValue('onThursday') === 'TRUE';
+  var checkbox_onfriday = block.getFieldValue('onFriday') === 'TRUE';
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
+  return code;
+};
+
 //functions that create and load notion databases - located in the notion dtabase tab
 Blockly.Blocks['load_database'] = {
   init: function() {
