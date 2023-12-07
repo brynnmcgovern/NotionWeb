@@ -26,7 +26,6 @@
       <category name="Notion Database" colour="#995ba5">
         <block type="make_connection"></block>
         <block type="create_new_database"></block>
-        <block type="load_database"></block>
         <block type="databaseproperty"></block>
         <block type="multiselectdatabaseproperty"></block>
         <block type="multiselect_option"></block>
@@ -38,8 +37,6 @@
       </category>
       <category name="MISC Blocks" colour="#5ba55b">
         <block type="createDiv"></block>
-      </category>
-      <category name="HTML Conversion Blocks" colour="#813d53">
         <block type="createParagraph"></block>
         <block type="createLink"></block>
         <block type="createHeading"></block>
@@ -54,6 +51,7 @@
         <block type="insertImage"></block>
       </category>
       <category name="Beginner Friendly" colour="#813d53">
+        <block type="load_database"></block>
         <block type="createclassmanager"></block>
         <block type="class_entry"></block>
         <block type="classmanagerentry"></block>
@@ -78,7 +76,14 @@
       document.getElementById('outputDiv').innerText = outputResults;
       // See browser console for more information
       if (apiResponse.message === "error") return;
-    };
+    }
+    const showcaseRequest = function(apiResponse) {
+      console.log(apiResponse);
+      const outputResults = apiResponse.message;
+      document.getElementById('outputDiv').innerText = outputResults;
+      // See browser console for more information
+      if (apiResponse.message === "error") return;
+    }
     var workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('custom-toolbox'),
             scrollbars: true

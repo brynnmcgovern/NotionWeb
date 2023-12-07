@@ -56,9 +56,9 @@ Blockly.Blocks['classmanagerentry'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Add a Class To a Class Manager");
-    this.appendStatementInput("databaseID")
-        .setCheck("databaseID")
-        .appendField("DatabaseID:");
+    this.appendDummyInput()
+        .appendField("Database ID: ")
+        .appendField(new Blockly.FieldTextInput("databaseID"), "databaseID");
     this.appendStatementInput("classEntries")
         .setCheck("class_entry")
         .appendField("Add Classes Here:");
@@ -69,10 +69,15 @@ Blockly.Blocks['classmanagerentry'] = {
 };
 
 javascript.javascriptGenerator.forBlock['classmanagerentry'] = function(block, generator) {
-  var statements_databaseid = generator.statementToCode(block, 'databaseID');
+  var text_databaseid = block.getFieldValue('databaseID');
   var statements_classentries = generator.statementToCode(block, 'classEntries');
-  // TODO: Assemble javascript into code variable.
-  var code = '...\n';
+
+
+  var code = `
+    ${statements_classentries}
+    result = makeRequest("${text_databaseid}");
+    console.log(result);
+  `;
   return code;
 };
 
@@ -82,11 +87,13 @@ Blockly.Blocks['class_entry'] = {
     this.appendDummyInput()
         .appendField("Add a Class");
     this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Image URL"), "imageURL");
+    this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("Class Name"), "className");
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput("Class Time"), "classTime");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput("Proffesor Name"), "proffesorName");
+        .appendField(new Blockly.FieldTextInput("Professor Name"), "professorName");
     this.appendDummyInput()
         .appendField("Class Days:")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "onMonday")
@@ -108,16 +115,45 @@ Blockly.Blocks['class_entry'] = {
 };
 
 javascript.javascriptGenerator.forBlock['class_entry'] = function(block, generator) {
+  var text_imageURL = block.getFieldValue('imageURL');
   var text_classname = block.getFieldValue('className');
   var text_classtime = block.getFieldValue('classTime');
-  var text_proffesorname = block.getFieldValue('proffesorName');
+  var text_professorname = block.getFieldValue('professorName');
   var checkbox_onmonday = block.getFieldValue('onMonday') === 'TRUE';
   var checkbox_ontuesday = block.getFieldValue('onTuesday') === 'TRUE';
   var checkbox_onwednesday = block.getFieldValue('onWednesday') === 'TRUE';
   var checkbox_onthursday = block.getFieldValue('onThursday') === 'TRUE';
   var checkbox_onfriday = block.getFieldValue('onFriday') === 'TRUE';
-  // TODO: Assemble javascript into code variable.
-  var code = '...\n';
+  
+  var code = `
+  async function makeRequest(userInput) {
+    const dbID = userInput
+    const imageURL = "${text_imageURL}"
+    const className = "${text_classname}"
+    const classTime = "${text_classtime}"
+    const professorName = "${text_professorname}"
+    
+    const body = JSON.stringify({ dbID, imageURL, className, classTime, professorName})
+  
+    const newPageResponse = await fetch("/addToClassManager", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    })
+  
+    const newPageData = await newPageResponse.json()
+
+    showcaseRequest(newPageData)
+  
+  }
+
+  // Execute the async function
+  //result = makeRequest(userdbID);
+  //console.log(result);
+
+  `;
   return code;
 };
 
@@ -138,7 +174,7 @@ Blockly.Blocks['load_database'] = {
 javascript.javascriptGenerator.forBlock['load_database'] = function(block, generator) {
   var text_databaseid = block.getFieldValue('databaseID');
   // TODO: Assemble javascript into code variable.
-  var code = `Loading Information from"${text_databaseid}"`;
+  var code = `${text_databaseid}`;
   return code;
 };
 

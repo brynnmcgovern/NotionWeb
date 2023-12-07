@@ -99,5 +99,65 @@ app.post('/createClassManager', async function (req, res) {
     }catch (error) {
       res.json({ message: "error", error });
     }
-  });
+});
   
+app.post('/addToClassManager', async function (req, res) {
+  console.log("Request received at /addToClassManager", req.body);
+  const db_id = req.body.dbID;
+  const imageURL = req.body.imageURL;
+  const className = req.body.className;
+  const classTime = req.body.classTime;
+  const professorName = req.body.professorName;
+
+   // Perform Notion API request using the received data
+  try{
+    const response = await notion.pages.create({
+      "parent": {
+        "type": "database_id",
+        "database_id": db_id,
+      },
+      "icon": {
+        "type": "emoji",
+        "emoji": "📖",
+      },
+      "cover": {
+        "type": "external",
+       "external": {
+          "url": imageURL,
+        },
+      },
+      "properties": {
+        "Class Name": {
+          "title": [
+            {
+                "text": {
+                    "content": className,
+                }
+            }
+        ]
+        },
+        "Class Time": {
+          "rich_text": [
+              {
+                  "text": {
+                      "content": classTime,
+                  }
+              }
+          ]
+        },
+        "Professor Name": {
+          "rich_text": [
+              {
+                  "text": {
+                      "content": professorName,
+                  }
+              }
+          ]
+        },
+      },
+    });
+    res.json({ message: "success!", data: response});
+  }catch (error) {
+    res.json({ message: "error", error });
+  }
+});
