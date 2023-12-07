@@ -13,13 +13,6 @@ Blockly.Blocks['createclassmanager'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Enter URL of Header Image")
         .appendField(new Blockly.FieldTextInput("Enter URL Here"), "databaseImage");
-    this.appendValueInput("pageID")
-        .setCheck("notion_page_ID")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Page ID");
-    this.appendStatementInput("Add an Entry")
-        .setCheck("class_entry")
-        .appendField("Entries");
     this.setColour(65);
  this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
  this.setHelpUrl("");
@@ -29,8 +22,6 @@ Blockly.Blocks['createclassmanager'] = {
 javascript.javascriptGenerator.forBlock['createclassmanager'] = function(block, generator) {
   var text_databasename = block.getFieldValue('databaseName');
   var text_databaseimage = block.getFieldValue('databaseImage');
-  var value_pageID = generator.valueToCode(block, 'pageID', javascript.Order.ATOMIC);
-  var statements_add_an_entry = generator.statementToCode(block, 'Add an Entry');
 
   var code = `
   async function makeRequest() {
@@ -47,16 +38,41 @@ javascript.javascriptGenerator.forBlock['createclassmanager'] = function(block, 
       body,
     })
     const newDBData = await newDBResponse.json()
-    return newDBData;
+
+    showcaseNewDatabaseID(newDBData)
+  
   }
 
   // Execute the async function
   result = makeRequest();
-
-  //const result = await makeRequest();
   console.log(result);
+
   `;
 
+  return code;
+};
+
+Blockly.Blocks['classmanagerentry'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Add a Class To a Class Manager");
+    this.appendStatementInput("databaseID")
+        .setCheck("databaseID")
+        .appendField("DatabaseID:");
+    this.appendStatementInput("classEntries")
+        .setCheck("class_entry")
+        .appendField("Add Classes Here:");
+    this.setColour(300);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['classmanagerentry'] = function(block, generator) {
+  var statements_databaseid = generator.statementToCode(block, 'databaseID');
+  var statements_classentries = generator.statementToCode(block, 'classEntries');
+  // TODO: Assemble javascript into code variable.
+  var code = '...\n';
   return code;
 };
 
@@ -83,8 +99,8 @@ Blockly.Blocks['class_entry'] = {
         .appendField("Thu")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "onFriday")
         .appendField("Fri");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setPreviousStatement(true, "class_entry");
+    this.setNextStatement(true, "class_entry");
     this.setColour(160);
  this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
  this.setHelpUrl("");
@@ -111,11 +127,11 @@ Blockly.Blocks['load_database'] = {
     this.appendDummyInput()
         .appendField("Notion Database ID:")
         .appendField(new Blockly.FieldTextInput("databaseID"), "databaseID");
-    this.setPreviousStatement(true, "NotionDatabase");
-    this.setNextStatement(true, "databasemanipulation");
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(300);
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
@@ -226,12 +242,6 @@ javascript.javascriptGenerator.forBlock['multiselect_option'] = function(block, 
 
 Blockly.Blocks['make_connection'] = {
   init: function() {
-    this.appendValueInput("notion_api_key")
-        .setCheck("notion_api_key")
-        .appendField("Enter Notion Integration Key:");
-    this.appendValueInput("notion_page_ID")
-        .setCheck("notion_page_ID")
-        .appendField("Enter Notion Page ID:");
     this.appendStatementInput("NotionAPIRequests")
         .setCheck("NotionDatabase")
         .appendField("Notion API Requests:");
@@ -242,37 +252,10 @@ Blockly.Blocks['make_connection'] = {
 };
 
 javascript.javascriptGenerator.forBlock['make_connection'] = function(block, generator) {
-  var value_notion_api_key = generator.valueToCode(block, 'notion_api_key', javascript.Order.ATOMIC);
-  var value_notion_page_id = generator.valueToCode(block, 'notion_page_ID', javascript.Order.ATOMIC);
   var statements_notionapirequests = generator.statementToCode(block, 'NotionAPIRequests');
   // TODO: Assemble javascript into code variable.
   var code = '...\n';
   return code;
-};
-
-
-Blockly.Blocks['notion_api_key'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Notion API Token/Key:")
-        .appendField(new Blockly.FieldTextInput("YOUR_API_KEY"), "API_KEY");
-    this.setOutput(true, "notion_api_key");
-    this.setColour(180);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['notion_page_ID'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Notion Page ID:")
-        .appendField(new Blockly.FieldTextInput("Page ID"), "notion_page_ID");
-    this.setOutput(true, "notion_page_ID");
-    this.setColour(180);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
 };
 
 //functions that manipulate a given notion databases - located in the notion functions tab
@@ -380,13 +363,6 @@ Blockly.JavaScript['createDiv'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-
-// // Usage of the createDiv block to generate HTML code
-// var divId = "myDiv";
-// var divClass = "myClass";
-// var divContent = "This is a div element";
-// var htmlCode = createDiv(divId, divClass, divContent);
-
 // Custom Blockly block for creating a <p> element
 Blockly.Blocks['createParagraph'] = {
   init: function() {
@@ -409,8 +385,7 @@ Blockly.JavaScript['createParagraph'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-// var paragraphContent = "This is a paragraph.";
-// var paragraphHtml = createParagraph(paragraphContent);
+
 
 Blockly.Blocks['createLink'] = {
   init: function() {
@@ -756,12 +731,6 @@ Blockly.JavaScript['createLink'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-// // You can use these blocks to create HTML elements in Blockly. For example, to create a <div> element:
-// var divId = "myDiv";
-// var divClass = "myClass";
-// var divContent = "This is a div element";
-// var htmlCode = createDiv(divId, divClass, divContent);
-
 
 
 // To create a Checklist 
@@ -787,14 +756,6 @@ Blockly.JavaScript['generateHTML'] = function(block) {
   return [htmlCode, Blockly.JavaScript.ORDER_NONE];
 };
 
-
-// // Here's an example of how to use the generateHTML block to create an HTML page with a <div>, <p>, and <a> element:
-// var divId = "myDiv";
-// var divClass = "myClass";
-// var divContent = "This is a div element";
-// var paragraphContent = "This is a paragraph.";
-// var linkUrl = "https://example.com";
-// var linkText = "Visit Example Website";
 
 generateHTML(function() {
   createDiv(divId, divClass, divContent);

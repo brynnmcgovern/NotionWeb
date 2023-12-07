@@ -25,8 +25,6 @@
     <xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
       <category name="Notion Database" colour="#995ba5">
         <block type="make_connection"></block>
-        <block type="notion_page_ID"></block>
-        <block type="notion_api_key"></block>
         <block type="create_new_database"></block>
         <block type="load_database"></block>
         <block type="databaseproperty"></block>
@@ -58,6 +56,7 @@
       <category name="Beginner Friendly" colour="#813d53">
         <block type="createclassmanager"></block>
         <block type="class_entry"></block>
+        <block type="classmanagerentry"></block>
       </category>
     </xml>
   </div>
@@ -73,6 +72,13 @@
     <div id="outputDiv" class="half-width"></div>
   </div>
   <script>
+    const showcaseNewDatabaseID = function(apiResponse) {
+      console.log(apiResponse);
+      const outputResults = apiResponse.message + " New Database ID: " + apiResponse.data.id;
+      document.getElementById('outputDiv').innerText = outputResults;
+      // See browser console for more information
+      if (apiResponse.message === "error") return;
+    };
     var workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('custom-toolbox'),
             scrollbars: true
@@ -86,7 +92,8 @@
         var code = Blockly.JavaScript.workspaceToCode(workspace);
         try {
             var output = await (eval(code));
-            document.getElementById('outputDiv').innerText = output;
+            console.log(output);
+            //document.getElementById('outputDiv').innerText = output;
         } catch (e) {
             document.getElementById('outputDiv').innerText = 'Error: ' + e;
         }

@@ -21,38 +21,8 @@ const listener = app.listen(process.env.PORT, function() {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-app.post("/databases", async function (request, response) {
-    const pageId = process.env.NOTION_PAGE_ID;
-    const title = request.body.dbName;
-  
-    try {
-  // Notion API request!
-      const newDb = await notion.databases.create({
-        parent: {
-          type: "page_id",
-          page_id: pageId,
-        },
-        title: [
-          {
-            type: "text",
-            text: {
-              content: title,
-            },
-          },
-        ],
-        properties: {
-          Name: {
-            title: {},
-          },
-        },
-      });
-      response.json({ message: "success!", data: newDb });
-    } catch (error) {
-      response.json({ message: "error", error });
-    }
-  });
 
-  app.post('/createClassManager', async function (req, res) {
+app.post('/createClassManager', async function (req, res) {
     const pageId = process.env.NOTION_PAGE_ID;
     const title = req.body.dbName;
     const imageUrl = req.body.dbImageURL;
