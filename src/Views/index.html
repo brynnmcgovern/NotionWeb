@@ -5,13 +5,13 @@
   <title> NotionWeb </title>
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="/custom-blocks.js"></script>
+  <script src="defaultBlocks.js"></script>
   <script src="blockly_compressed.js"></script>
   <script src="blocks_compressed.js"></script>
   <script src="javascript_compressed.js"></script>
   <script src="custom_category_es6.js"></script>
   <script src="toolbox_label_es6.js"></script>
   <script src="/server.js" defer></script>
-  <script src="/client.js" defer></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -87,7 +87,11 @@
     var workspace = Blockly.inject('blocklyDiv', {
             toolbox: document.getElementById('custom-toolbox'),
             scrollbars: true
-        });
+    });
+
+    var defaultBlocksDom = Blockly.utils.xml.textToDom(defaultBlocks);
+        Blockly.Xml.domToWorkspace(defaultBlocksDom, workspace);
+
     function generateCode() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
         document.getElementById('codeDiv').innerText = code;
