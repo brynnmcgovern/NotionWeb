@@ -71,7 +71,7 @@ To extend the current capabilities of NotionWeb, developers can introduce new bl
 - Utilize the [Notion API Reference](https://developers.notion.com/reference/intro) to locate the required API request formats.
 - In the code, specify the necessary details such as authentication tokens, request parameters, and any additional configurations required by the Notion API.
 
-## 4. Leverage Example Implementations:
+4. Leverage Example Implementations:
 
 - Refer to the [Notion API Documentation](https://developers.notion.com/docs) for comprehensive examples showcasing the capabilities of the Notion API.
 - Gain insights into best practices and recommended approaches by studying the provided examples.
