@@ -47,3 +47,33 @@
     ```
 
 Following these steps should ensure a successful setup and utilization of the NotionWeb Blockly project.
+
+## To Further Add on To Notion Web:
+
+### Adding Functionality to NotionWeb
+
+To extend the current capabilities of NotionWeb, developers can introduce new blocks that interact directly with the Notion API. Follow the steps below to seamlessly integrate additional functionality:
+
+1. Define New Blocks in `custom-blocks.js`:
+
+- Open the `custom-blocks.js` file.
+- Create new blocks to encapsulate the desired functionality.
+- Within the code variables, specify the details of the API request, including the required parameters and authentication.
+
+2. Specify API Endpoints in `server.js`:
+
+- Navigate to the `server.js` file.
+- Clearly define the endpoints for each individual block based on the specific functionality you intend to achieve.
+- Ensure that the endpoints correspond to the blocks defined in `custom-blocks.js`.
+
+3. Configuring API Requests:
+
+- Utilize the [Notion API Reference](https://developers.notion.com/reference/intro) to locate the required API request formats.
+- In the code, specify the necessary details such as authentication tokens, request parameters, and any additional configurations required by the Notion API.
+
+## 4. Leverage Example Implementations:
+
+- Refer to the [Notion API Documentation](https://developers.notion.com/docs) for comprehensive examples showcasing the capabilities of the Notion API.
+- Gain insights into best practices and recommended approaches by studying the provided examples.
+
+By following these steps, developers can seamlessly integrate additional features into NotionWeb. This documentation ensures clarity and provides resources for understanding API request formats and exploring practical implementations.
