@@ -23,7 +23,7 @@ Collaboratively, our team has been actively engaged in various aspects of the No
 
 
 [View Instructions](./docs/instructions.md)
-[Project Summary Video]
+[Project Summary Video](https://drive.google.com/file/d/1vL17yjX_6s0jHDx9bMa9k7Awzpy7n49M/view?usp=drive_link) 
 [Technical Video](https://drive.google.com/file/d/1uKK4EiJRLOYDrbDO0m1eTtfScT71o-VQ/view?usp=sharing)
 
 https://brynnmcgovern.github.io/NotionWeb/ 
