@@ -6,6 +6,7 @@
   <title> NotionWeb </title>
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="custom-blocks.js"></script>
+  <script src="defaultBlocks.js"></script>
   <script src="blockly_compressed.js"></script>
   <script src="blocks_compressed.js"></script>
   <script src="javascript_compressed.js"></script>
@@ -24,10 +25,7 @@
     <xml xmlns="https://developers.google.com/blockly/xml" id="custom-toolbox" style="display: none">
       <category name="Notion Database" colour="#995ba5">
         <block type="make_connection"></block>
-        <block type="notion_page_ID"></block>
-        <block type="notion_api_key"></block>
         <block type="create_new_database"></block>
-        <block type="load_database"></block>
         <block type="databaseproperty"></block>
         <block type="multiselectdatabaseproperty"></block>
         <block type="multiselect_option"></block>
@@ -55,6 +53,12 @@
         <block type="createUnorderedList"></block>
         <block type="createHyperlink"></block>
         <block type="insertImage"></block>
+      </category>
+      <category name="Beginner Friendly" colour="#813d53">
+        <block type="load_database"></block>
+        <block type="createclassmanager"></block>
+        <block type="class_entry"></block>
+        <block type="classmanagerentry"></block>
       </category>
     </xml>
   </div>
