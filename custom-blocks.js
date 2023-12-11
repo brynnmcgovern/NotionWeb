@@ -1,23 +1,180 @@
 Blockly.HSV_SATURATION = 1;
 
+//simple block to create a class database
+Blockly.Blocks['createclassmanager'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Create A Class Manager Database");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Enter Name Of Database")
+        .appendField(new Blockly.FieldTextInput("Enter Name Here"), "databaseName");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Enter URL of Header Image")
+        .appendField(new Blockly.FieldTextInput("Enter URL Here"), "databaseImage");
+    this.setColour(65);
+ this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['createclassmanager'] = function(block, generator) {
+  var text_databasename = block.getFieldValue('databaseName');
+  var text_databaseimage = block.getFieldValue('databaseImage');
+
+  var code = `
+  async function makeRequest() {
+
+    const dbName = "${text_databasename}"
+    const dbImageURL = "${text_databaseimage}"
+    const body = JSON.stringify({ dbName, dbImageURL })
+
+    const newDBResponse = await fetch("/createClassManager", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    })
+    const newDBData = await newDBResponse.json()
+
+    showcaseNewDatabaseID(newDBData)
+  
+  }
+
+  // Execute the async function
+  result = makeRequest();
+  console.log(result);
+
+  `;
+
+  return code;
+};
+
+Blockly.Blocks['classmanagerentry'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Add a Class To a Class Manager");
+    this.appendDummyInput()
+        .appendField("Database ID: ")
+        .appendField(new Blockly.FieldTextInput("databaseID"), "databaseID");
+    this.appendStatementInput("classEntries")
+        .setCheck("class_entry")
+        .appendField("Add Classes Here:");
+    this.setColour(300);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['classmanagerentry'] = function(block, generator) {
+  var text_databaseid = block.getFieldValue('databaseID');
+  var statements_classentries = generator.statementToCode(block, 'classEntries');
+
+
+  var code = `
+    ${statements_classentries}
+    result = makeRequest("${text_databaseid}");
+    console.log(result);
+  `;
+  return code;
+};
+
+//class entry for class database
+Blockly.Blocks['class_entry'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Add a Class");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Image URL"), "imageURL");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Class Name"), "className");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Class Time"), "classTime");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("Professor Name"), "professorName");
+    this.appendDummyInput()
+        .appendField("Class Days:")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onMonday")
+        .appendField("Mon")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onTuesday")
+        .appendField("Tue")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onWednesday")
+        .appendField("Wed")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onThursday")
+        .appendField("Thu")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "onFriday")
+        .appendField("Fri");
+    this.setPreviousStatement(true, "class_entry");
+    this.setNextStatement(true, "class_entry");
+    this.setColour(160);
+ this.setTooltip("Add a Class Manager Database To An Existing Notion Page");
+ this.setHelpUrl("");
+  }
+};
+
+javascript.javascriptGenerator.forBlock['class_entry'] = function(block, generator) {
+  var text_imageURL = block.getFieldValue('imageURL');
+  var text_classname = block.getFieldValue('className');
+  var text_classtime = block.getFieldValue('classTime');
+  var text_professorname = block.getFieldValue('professorName');
+  var checkbox_onmonday = block.getFieldValue('onMonday') === 'TRUE';
+  var checkbox_ontuesday = block.getFieldValue('onTuesday') === 'TRUE';
+  var checkbox_onwednesday = block.getFieldValue('onWednesday') === 'TRUE';
+  var checkbox_onthursday = block.getFieldValue('onThursday') === 'TRUE';
+  var checkbox_onfriday = block.getFieldValue('onFriday') === 'TRUE';
+  
+  var code = `
+  async function makeRequest(userInput) {
+    const dbID = userInput
+    const imageURL = "${text_imageURL}"
+    const className = "${text_classname}"
+    const classTime = "${text_classtime}"
+    const professorName = "${text_professorname}"
+    
+    const body = JSON.stringify({ dbID, imageURL, className, classTime, professorName})
+  
+    const newPageResponse = await fetch("/addToClassManager", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    })
+  
+    const newPageData = await newPageResponse.json()
+
+    showcaseRequest(newPageData)
+  
+  }
+
+  // Execute the async function
+  //result = makeRequest(userdbID);
+  //console.log(result);
+
+  `;
+  return code;
+};
+
 //functions that create and load notion databases - located in the notion dtabase tab
 Blockly.Blocks['load_database'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Notion Database ID:")
         .appendField(new Blockly.FieldTextInput("databaseID"), "databaseID");
-    this.setPreviousStatement(true, "NotionDatabase");
-    this.setNextStatement(true, "databasemanipulation");
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(300);
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
 javascript.javascriptGenerator.forBlock['load_database'] = function(block, generator) {
   var text_databaseid = block.getFieldValue('databaseID');
   // TODO: Assemble javascript into code variable.
-  var code = `Loading Information from"${text_databaseid}"`;
+  var code = `${text_databaseid}`;
   return code;
 };
 
