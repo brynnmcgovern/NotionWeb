@@ -17,5 +17,7 @@ Notion is mostly made up of JavaScript/HTML. We will incorporate Blockly for thi
 
 [View Instructions](./docs/instructions.md)
 
+[Technical Video](https://drive.google.com/file/d/1uKK4EiJRLOYDrbDO0m1eTtfScT71o-VQ/view?usp=sharing)
+
 
 https://brynnmcgovern.github.io/NotionWeb/ 
